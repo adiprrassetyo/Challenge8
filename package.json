@@ -26,5 +26,18 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
-  }
+  },
+  "description": "Di dalam repository ini terdapat implementasi API dari Binar Car Rental.\r Tugas kalian disini adalah:\r 1. Fork repository\r 2. Tulis unit test di dalam repository ini menggunakan `jest`.\r 3. Coverage minimal 70%",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adiprrassetyo/Challenge8.git"
+  },
+  "author": "Adi Prasetyo",
+  "bugs": {
+    "url": "https://github.com/adiprrassetyo/Challenge8/issues"
+  },
+  "homepage": "https://github.com/adiprrassetyo/Challenge8#readme"
 }
