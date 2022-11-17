@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node -r dotenv/config bin/www",
+    "test":"jest --coverage",
     "develop": "nodemon -r dotenv/config bin/www",
     "db:create": "sequelize db:create",
     "db:drop": "sequelize db:drop",
@@ -25,7 +26,10 @@
     "swagger-ui-express": "^4.4.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.16"
+    "eslint": "^8.27.0",
+    "jest": "^29.3.1",
+    "nodemon": "^2.0.16",
+    "supertest": "^6.3.1"
   },
   "description": "Di dalam repository ini terdapat implementasi API dari Binar Car Rental.\r Tugas kalian disini adalah:\r 1. Fork repository\r 2. Tulis unit test di dalam repository ini menggunakan `jest`.\r 3. Coverage minimal 70%",
   "directories": {

@@ -1,0 +1,18 @@
+{
+    "env": {
+        "commonjs": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "rules": {
+        "semi": "error",
+        "quotes": ["warn", "double"],
+        "no-unused-vars": "warn",
+        "handle-callback-err": [2, "^.*(e|E)rr" ]
+    },
+    "ignorePatterns": ["*.spec.js", "*.test.js"]
+}
