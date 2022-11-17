@@ -49,12 +49,13 @@ class AuthenticationController extends ApplicationController {
 
   handleLogin = async (req, res, next) => {
     try {
-      const email = req.body.email.toLowerCase();
+      const email = req.body.email;
       const password = req.body.password;
+      console.log("email", email);
       const user = await this.userModel.findOne({
-        where: { email, },
-        include: [{ model: this.roleModel, attributes: [ "id", "name", ], }]
-      });
+        where: {email},
+        include: [{model: this.roleModel, attributes: ["id", "name"]}],
+    });
 
       if (!user) {
         const err = new EmailNotRegisteredError(email);
@@ -85,9 +86,10 @@ class AuthenticationController extends ApplicationController {
   handleRegister = async (req, res, next) => {
     try {
       const name = req.body.name;
-      const email = req.body.email.toLowerCase();
+      const email = req.body.email;
       const password = req.body.password;
-      let existingUser = await this.userModel.findOne({ where: { email, }, });
+      let existingUser = await this.userModel.findOne({where: {email}});
+      
 
       if (existingUser) {
         // eslint-disable-next-line no-undef
