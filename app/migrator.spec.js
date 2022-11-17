@@ -1,6 +1,7 @@
 const migrator = require("./migrator");
 
-jest.setTimeout(20000);
+// jest.setTimeout(20000);
+jest.useFakeTimers('legacy')
 
 describe("test migrator", () => {
     // beforeEach(async () => {

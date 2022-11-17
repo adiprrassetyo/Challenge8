@@ -7,7 +7,8 @@ const { EmailAlreadyTakenError } = require("./errors");
 const { User } = require("./models");
 const migrator = require("./migrator");
 
-jest.setTimeout(20000);
+// jest.setTimeout(20000);
+jest.useFakeTimers('legacy')
 app.use(express.json());
 router.apply(app);
 

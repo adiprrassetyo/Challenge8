@@ -6,7 +6,8 @@ const router = require("./router");
 const { InsufficientAccessError } = require("./errors");
 const jwt = require("jsonwebtoken");
 
-jest.setTimeout(20000);
+// jest.setTimeout(20000);
+jest.useFakeTimers('legacy')
 app.use(express.json());
 router.apply(app);
 
