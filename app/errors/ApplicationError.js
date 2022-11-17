@@ -10,7 +10,7 @@ class ApplicationError extends Error {
         message: this.message,
         details: this.details,
       }
-    }
+    };
   }
 }
 

@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 const {
   Model
-} = require('sequelize');
+} = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Car extends Model {
     /**
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasOne(models.UserCar, {
         foreignKey: "carId",
         as: "userCar",
-      })
+      });
     }
 
     // toJSON() {
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     isCurrentlyRented: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName: 'Car',
+    modelName: "Car",
   });
   return Car;
 };

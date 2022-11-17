@@ -6,7 +6,7 @@ class CarAlreadyRentedError extends ApplicationError {
   }
 
   get details() {
-    return { car }
+    return {  };
   }
 }
 

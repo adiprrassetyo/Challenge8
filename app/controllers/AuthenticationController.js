@@ -20,13 +20,13 @@ class AuthenticationController extends ApplicationController {
     PUBLIC: "PUBLIC",
     ADMIN: "ADMIN",
     CUSTOMER: "CUSTOMER",
-  }
+  };
 
   authorize =(rolename) => {
     return (req, res, next) => {
       try {
         const token = req.headers.authorization?.split("Bearer ")[1];
-        const payload = this.decodeToken(token)
+        const payload = this.decodeToken(token);
 
         if (!!rolename && rolename != payload.role.name)
           throw new InsufficientAccessError(payload?.role?.name);
@@ -42,10 +42,10 @@ class AuthenticationController extends ApplicationController {
             message: err.message,
             details: err.details || null,
           }
-        })
+        });
       }
-    }
-  }
+    };
+  };
 
   handleLogin = async (req, res, next) => {
     try {
@@ -74,13 +74,13 @@ class AuthenticationController extends ApplicationController {
 
       res.status(201).json({
         accessToken,
-      })
+      });
     }
 
     catch(err) {
       next(err);
     }
-  }
+  };
 
   handleRegister = async (req, res, next) => {
     try {
@@ -89,7 +89,8 @@ class AuthenticationController extends ApplicationController {
       const password = req.body.password;
       let existingUser = await this.userModel.findOne({ where: { email, }, });
 
-      if (!!existingUser) {
+      if (existingUser) {
+        // eslint-disable-next-line no-undef
         const err = new EmailAlreadyTakenError(email);
         res.status(422).json(err);
         return;
@@ -104,26 +105,26 @@ class AuthenticationController extends ApplicationController {
         email,
         encryptedPassword: this.encryptPassword(password),
         roleId: role.id,
-      }) 
+      });
 
       const accessToken = this.createTokenFromUser(user, role);
 
       res.status(201).json({
         accessToken,
-      })
+      });
     }
 
     catch(err) {
       next(err);
     }
-  }
+  };
 
   handleGetUser = async (req, res) => {
     const user = await this.userModel.findByPk(req.user.id);
 
     if (!user) {
       const err = new RecordNotFoundError(this.userModel.name);
-      res.status(404).json(err)
+      res.status(404).json(err);
       return;
     }
 
@@ -131,12 +132,12 @@ class AuthenticationController extends ApplicationController {
 
     if (!role) {
       const err = new RecordNotFoundError(this.roleModel.name);
-      res.status(404).json(err)
+      res.status(404).json(err);
       return;
     }
 
     res.status(200).json(user);
-  }
+  };
 
   createTokenFromUser = (user, role) => {
     return this.jwt.sign({
@@ -149,7 +150,7 @@ class AuthenticationController extends ApplicationController {
         name: role.name,
       }
     }, JWT_SIGNATURE_KEY);
-  }
+  };
 
   decodeToken(token) {
     return this.jwt.verify(token, JWT_SIGNATURE_KEY);
@@ -157,11 +158,11 @@ class AuthenticationController extends ApplicationController {
 
   encryptPassword = (password) => {
     return this.bcrypt.hashSync(password, 10);
-  }
+  };
 
   verifyPassword = (password, encryptedPassword) => {
-    return this.bcrypt.compareSync(password, encryptedPassword)
-  }
+    return this.bcrypt.compareSync(password, encryptedPassword);
+  };
 }
 
 module.exports = AuthenticationController;

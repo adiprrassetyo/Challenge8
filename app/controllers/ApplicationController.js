@@ -6,7 +6,7 @@ class ApplicationController {
       status: "OK",
       message: "BCR API is up and running!",
     });
-  }
+  };
 
   handleNotFound = (req, res) => {
     const err = new NotFoundError(req.method, req.url);
@@ -17,18 +17,18 @@ class ApplicationController {
         message: err.message,
         details: err.details,
       }
-    })
-  }
+    });
+  };
 
-  handleError = (err, req, res, next) => {
+  handleError = (err, req, res) => {
     res.status(500).json({
       error: {
         name: err.name,
         message: err.message,
         details: err.details || null,
       }
-    })
-  } 
+    });
+  } ;
 
   getOffsetFromRequest(req) {
     const { page = 1, pageSize = 10 } = req.query;
@@ -44,7 +44,7 @@ class ApplicationController {
       pageCount,
       pageSize,
       count,
-    }
+    };
   }
 }
 

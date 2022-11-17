@@ -1,49 +1,42 @@
-/* eslint-disable no-unused-vars */
 "use strict";
 
-const {
-  Op
-} = require("sequelize");
+const { Op } = require("sequelize");
 const bcrypt = require("bcryptjs");
-const {
-  Role
-} = require("../../app/models");
+const { Role } = require("../../app/models");
 
-const names = ["Customer", "Fikri", "Brian", "Ranggawarsita", "Jayabaya"];
+const names = [
+  "Johnny",
+  "Fikri",
+  "Brian",
+  "Ranggawarsita",
+  "Jayabaya",
+];
 
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    const password = "123";
+  async up (queryInterface) {
+    const password = "123456";
     const encryptedPassword = bcrypt.hashSync(password, 10);
     const timestamp = new Date();
 
-    await queryInterface.bulkInsert(
-      "Users",
-      [{
-          name: "Customer",
-          email: "customer@gmail.com",
-          encryptedPassword,
-          roleId: 1,
-          createdAt: timestamp,
-          updatedAt: timestamp,
-        },
-        {
-          name: "Admin",
-          email: "admin@gmail.com",
-          encryptedPassword,
-          roleId: 2,
-          createdAt: timestamp,
-          updatedAt: timestamp,
-        },
-      ], {}
-    );
+    const role = await Role.findOne({
+      where: {
+        name: "CUSTOMER",
+      }
+    });
+
+    const users = names.map((name) => ({
+      name,
+      email: `${name.toLowerCase()}@binar.co.id`,
+      encryptedPassword,
+      roleId: role.id, 
+      createdAt: timestamp,
+      updatedAt: timestamp,
+    }));
+
+    await queryInterface.bulkInsert("Users", users, {});
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("Users", {
-      name: {
-        [Op.in]: names
-      }
-    }, {});
-  },
+  async down (queryInterface) {
+    await queryInterface.bulkDelete("Users", { name: { [Op.in]: names } }, {});
+  }
 };
